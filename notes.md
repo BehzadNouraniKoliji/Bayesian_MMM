@@ -60,3 +60,11 @@ Controls the spread of the likelihood around the mean prediction. A HalfNormal p
 #### Degrees of Freedom $\nu$ — $\text{Gamma}(25,\ 2)$
 
 Parameter of the Student-T likelihood controlling tail heaviness. $\text{Gamma}(25,2)$ has a mean of $12.5$, pushing $\nu$ toward higher values where the Student-T distribution approaches a Normal distribution, while still allowing heavier tails to robustly handle the revenue outliers identified in the data.
+
+#### Posterior Predictive Check (as one way of evaluating the goodness of the developed model)
+
+After sampling, `pm.sample_posterior_predictive()` generates revenue predictions using the posterior parameter distributions.
+
+This is used to assess model fit — specifically, whether the posterior predictive distribution adequately covers the observed revenue signal. It is also used to run counterfactual simulations for ROAS and ROI estimation by zeroing out individual channels and comparing predicted revenue against the baseline.
+
+The key distinction is that prior sampling reflects only what the model assumed before seeing data, while posterior sampling reflects what the model learned after observing the data. The gap between the two indicates how much information the data contributed beyond the priors.
