@@ -12,7 +12,6 @@ A higher $\alpha$ means slower decay — the channel's effect lingers longer. A 
 
 Since $\alpha$ is given a Beta(1,1) prior, the model learns the appropriate decay rate for each channel from the data, rather than it being fixed in advance.
 
-
 ### Question 2. Explain your choice of prior inputs to the model?
 
 One of the unique features of Bayesian MMM is its ability to integrate prior knowledge into the modeling process. This could include insights from past marketing campaigns, industry benchmarks, or expert opinions. By combining this prior knowledge with data-driven insights, the Bayesian approach helps create a more robust model.
@@ -29,7 +28,7 @@ Models the linear growth or decline in revenue over time. A Normal prior allows 
 
 Coefficients for the Fourier terms capturing recurring seasonal patterns. A Laplace prior is preferred over a Normal prior because its heavier tails and sharper peak at zero act as a sparsity-inducing prior — most Fourier modes should remain near zero, with only a few driving the seasonality signal.
 
-#### Black Friday & January Sale $b_{\text{black\_friday}},\ b_{\text{january\_sale}}$ — $\mathcal{HN}(0.5)$
+#### Black Friday & January Sale $b_{\mathrm{black\ friday}},\ b_{\mathrm{january\ sale}}$ — $\mathcal{HN}(0.5)$
 
 These events only produce positive revenue lifts, never negative, so a HalfNormal prior is appropriate. $\sigma = 0.5$ is weakly informative, allowing a substantial lift while not forcing one.
 
