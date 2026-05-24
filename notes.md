@@ -68,3 +68,48 @@ After sampling, `pm.sample_posterior_predictive()` generates revenue predictions
 This is used to assess model fit — specifically, whether the posterior predictive distribution adequately covers the observed revenue signal. It is also used to run counterfactual simulations for ROAS and ROI estimation by zeroing out individual channels and comparing predicted revenue against the baseline.
 
 The key distinction is that prior sampling reflects only what the model assumed before seeing data, while posterior sampling reflects what the model learned after observing the data. The gap between the two indicates how much information the data contributed beyond the priors.
+
+### Questions 5 & 6. What are your main insights in terms of channel performance/effects? Can you derive ROI (Return on Investment) estimates per channel? What is the best channel in terms of ROI?
+
+Looking at both the ROI distributions and the response curves together in the Jupyter Notebook:
+
+#### $z_6$ — Best Performing Channel
+
+This is the only channel with a clearly positive mean ROI (`1.305`). The response curve also shows a strong, near-linear response to spend with a wide spend range, including near-zero periods.
+
+This makes $z_6$ the most reliable and identifiable channel in the model. The evidence strongly suggests increasing budget allocation to this channel.
+
+#### $z_1$ and $z_2$ — Unreliable Attribution
+
+Both channels have HDIs spanning massively from negative to positive values (for example, $z_2$: `-23` to `+23`). Although the response curves appear reasonable, the extreme uncertainty in ROI makes budget decisions based on these channels unreliable.
+
+This is consistent with the multicollinearity and low-spend identification problem diagnosed earlier in the Jupyter Notebook.
+
+To improve identification, deliberately pausing the $z_2$ channel for several weeks would introduce the independent variation required for the model to better separate the contributions of $z_1$ and $z_2$.
+
+#### $z_3$ — Likely Negative ROI
+
+This channel has a mean ROI of `-0.685`, and the upper bound of the HDI barely reaches zero (`0.076`), suggesting it is highly likely to destroy value.
+
+The response curve shows a narrow spend range combined with a high baseline contribution, indicating that the model struggles to separate its impact from the baseline trend — likely because the channel rarely or never drops to zero spend.
+
+A blackout test would be especially valuable for validating this channel's true effect.
+
+#### $z_4$ and $z_5$ — Likely Negative ROI
+
+Both channels have negative mean ROI estimates and HDIs that mostly remain below zero.
+
+Although the response curves show reasonable spend variation, the model cannot confidently attribute positive incremental revenue to either channel.
+
+#### $z_7$ — Negative ROI with Strong Carryover Effects
+
+This channel has a mean ROI of `-0.511` with a relatively tight HDI (`-1.211` to `0.280`).
+
+The response curve indicates a high baseline contribution even at low spend levels, suggesting strong carryover/adstock effects. However, the marginal return from additional spend appears poor, implying potential overspending on this channel.
+
+#### Overall Strategic Takeaway
+
+- Concentrate incremental budget on $z_6$.
+- Treat $z_1$ and $z_2$ cautiously until blackout tests provide cleaner identification.
+- Seriously reconsider investment in $z_3$, $z_4$, $z_5$, and $z_7$ due to their likely negative marginal returns.
+- Use the saturation curves to define upper spend limits for each channel in future media planning.
