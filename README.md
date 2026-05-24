@@ -3,4 +3,6 @@ End-to-end Bayesian MMM pipeline built for real-world media campaign analysis us
 
 
 * The following figure shows the pipeline I created for the project.
+
+
 ![alt text](bayesian_mmm_pipeline.png)
